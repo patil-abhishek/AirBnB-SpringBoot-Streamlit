@@ -1,4 +1,4 @@
-package pes.ooad.airbnb.model;
+package pes.ooad.airbnb.model.user;
 
 
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package pes.ooad.airbnb.model;
+package pes.ooad.airbnb.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
@@ -16,11 +16,11 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer user_id;
-    String firstname;
-    String lastname;
-    String phone;
-    String email;
-    String password;
+    private Integer user_id;
+    private String firstname;
+    private String lastname;
+    private String phone;
+    private String email;
+    private String password;
 
 }

@@ -1,7 +1,7 @@
 package pes.ooad.airbnb.converter;
 
-import pes.ooad.airbnb.model.User;
-import pes.ooad.airbnb.model.UserOTP;
+import pes.ooad.airbnb.model.user.User;
+import pes.ooad.airbnb.model.user.UserOTP;
 
 public class UserConverter {
     public static User userOTPtoUser(UserOTP userOTP) {
