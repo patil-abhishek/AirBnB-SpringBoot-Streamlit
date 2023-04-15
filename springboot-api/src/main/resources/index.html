@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Airbnb Clone</title>
+	<style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F7F7F7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .input-group-prepend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .input-group-text {
+            background-color: #FFFFFF;
+            border: none;
+            color: #222222;
+            font-weight: bold;
+            padding: 10px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .form-control {
+            border: none;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            color: #333333;
+            background-color: #F0F0F0;
+        }
+
+        /* Optional hover and focus styles */
+        .form-control:hover,
+        .form-control:focus {
+            outline: none;
+            background-color: #E6E6E6;
+        }
+	</style>  
+    <script type="text/javascript">
+        //function to autocomplete search query from list written in array
+        $(function()
+        {
+            $("property_name").autocomplete({
+                source: ["property red house 1", "property red house 2", "property green house", "property yellow house"]
+            });    
+        })
+        /*
+        $(function() 
+        {
+            $("#property_name").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "",
+                        dataType: "json",
+                        data: {
+                            term : request.term
+                        },
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function(event, ui) {
+                    log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+                }
+            });
+        })
+        */
+    </script>
+</head>
+<body>
+    <form>
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Enter property name</span>
+            <input id="property_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{propertyName}">
+        </div>
+    </form>
+</body>
+</html>
