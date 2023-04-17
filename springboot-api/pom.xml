@@ -49,6 +49,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<dependency>
+    		<groupId>org.webjars.npm</groupId>
+    		<artifactId>chart.js</artifactId>
+    		<version>3.7.0</version>
+		</dependency>
+
     </dependencies>
 	<build>
 		<plugins>

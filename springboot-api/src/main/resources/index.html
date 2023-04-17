@@ -1,63 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Airbnb Clone</title>
-	<style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+  <head>
+    <title>Airbnb Clone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      /* Custom styles */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-        body {
-            background-color: #F7F7F7;
-            margin: 0;
-            padding: 0;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-        .input-group-prepend {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 30px;
-        }
+      .search-bar {
+        margin-top: 50px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+      }
 
-        .input-group-text {
-            background-color: #FFFFFF;
-            border: none;
-            color: #222222;
-            font-weight: bold;
-            padding: 10px;
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-        }
+      .search-bar input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        width: 80%;
+        background-color: transparent;
+        color: #333;
+        outline: none;
+      }
 
-        .form-control {
-            border: none;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            padding: 10px;
-            width: 100%;
-            font-size: 16px;
-            color: #333333;
-            background-color: #F0F0F0;
-        }
+      .search-bar button[type="submit"] {
+        border: none;
+        background-color: #f71d00;
+        color: #fff;
+        padding: 10px 30px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-        /* Optional hover and focus styles */
-        .form-control:hover,
-        .form-control:focus {
-            outline: none;
-            background-color: #E6E6E6;
-        }
-	</style>  
-    <script type="text/javascript">
-        //function to autocomplete search query from list written in array
+      .search-bar button[type="submit"]:hover {
+        background-color: #f71d00;
+      }
+
+      .input-group-text {
+        background-color: #fff;
+        border: none;
+        font-size: 16px;
+        color: #999;
+        padding: 10px;
+      }
+      
+      .logo{
+        font-size: 2rem;
+        color: #f71d00;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      
+      .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+    </style>
+	<script type="text/javascript">
+        
+		/*
         $(function()
         {
             $("property_name").autocomplete({
                 source: ["property red house 1", "property red house 2", "property green house", "property yellow house"]
             });    
         })
-        /*
+        */
+		//function to autocomplete search query from database
         $(function() 
         {
             $("#property_name").autocomplete({
@@ -75,19 +101,29 @@
                 },
                 minLength: 3,
                 select: function(event, ui) {
-                    log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+                    console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
                 }
             });
         })
-        */
     </script>
-</head>
-<body>
-    <form>
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Enter property name</span>
-            <input id="property_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="description" th:field="*{propertyName}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">Airbnb Clone</div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form class="search-bar">
+            <div class="input-group mb-3">
+              <input id="property_name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="description" placeholder="Enter property name">
+              <div class="input-group-append">
+                <button type="submit" class="btn" style="background-color: #f7b500; color: #fff;">Search</button>
+              </div>
+            </div>
+          </form>
         </div>
-    </form>
-</body>
+      </div>
+    </div>
+  </body>
 </html>

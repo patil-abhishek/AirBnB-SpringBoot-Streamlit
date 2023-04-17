@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Age Data</title>
+    <script src="/webjars/chart.js/3.7.0/dist/chart.js"></script>
+</head>
+<body>
+    <canvas id="pie-chart"></canvas>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        var data = [[${customerAgeData}]];
+        var labels = data.map(function(d) { return d.ageBracket; });
+        var values = data.map(function(d) { return d.count; });
+        var colors = ['#FF6384', '#36A2EB', '#FFCE56', '#E7E9ED', '#4BC0C0', '#9966FF'];
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: colors
+                }]
+            }
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>
