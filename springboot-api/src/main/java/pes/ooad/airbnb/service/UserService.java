@@ -10,6 +10,7 @@ import pes.ooad.airbnb.model.property.PropertyDisplay;
 import pes.ooad.airbnb.model.user.LoginCredentials;
 import pes.ooad.airbnb.model.user.User;
 import pes.ooad.airbnb.principal.CurrentUser;
+import pes.ooad.airbnb.repository.PropertyRepository;
 import pes.ooad.airbnb.repository.UserRepository;
 import pes.ooad.airbnb.util.Helpers;
 
@@ -23,13 +24,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean verifyLogin(LoginCredentials loginCredentials) {
-        String loginEmail = loginCredentials.getLoginEmail();
-        String loginPassword = loginCredentials.getLoginPassword();
-        if (userRepository.findByEmail(loginEmail).isPresent() &&
-                Objects.equals(userRepository.findByEmail(loginEmail).get().getPassword(), loginPassword))
+    @Autowired
+    private PropertyRepository propertyRepository;
+
+    public boolean verifyLogin(String email, String password) {
+        if (userRepository.findByEmail(email).isPresent() &&
+                Objects.equals(userRepository.findByEmail(email).get().getPassword(), password))
         {
-            CurrentUser.user_id = userRepository.findByEmail(loginEmail).get().getUser_id();
+            CurrentUser.user_id = userRepository.findByEmail(email).get().getUser_id();
             return true;
         }
         else
@@ -37,7 +39,8 @@ public class UserService {
     }
 
     public boolean checkUser(String registerEmail, String registerPhone) {
-        return userRepository.findByEmail(registerEmail).isEmpty() && userRepository.findByPhone(registerPhone).isEmpty();
+        return userRepository.findByEmail(registerEmail).isEmpty()
+                && userRepository.findByPhone(registerPhone).isEmpty();
     }
 
     public void addUserToDB(User user) {
@@ -56,6 +59,19 @@ public class UserService {
     }
 
     public User findById(Integer userId) {
-        return userRepository.findById(Integer.valueOf(userId)).get();
+        return userRepository.findById(userId).get();
     }
+
+    public void addPropertyToFav(Integer property_id) {
+        userRepository.findById(CurrentUser.user_id).get().getFavoriteProperties().add(
+                propertyRepository.findById(property_id).get()
+        );
+    }
+
+    public void removePropertyFav(Integer property_id) {
+        userRepository.findById(CurrentUser.user_id).get().getFavoriteProperties().remove(
+                propertyRepository.findById(property_id).get()
+        );
+    }
+
 }

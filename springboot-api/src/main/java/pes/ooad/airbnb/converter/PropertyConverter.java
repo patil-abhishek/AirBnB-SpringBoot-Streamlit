@@ -40,6 +40,8 @@ public class PropertyConverter {
         property.setSwimmingPool(propertyAdd.getSwimmingPool());
         property.setArea(propertyAdd.getArea());
         property.setPrice(propertyAdd.getPrice());
+        property.setAverageRating(0.0);
+        property.setNumOfReviews(0);
         return property;
     }
 
@@ -48,6 +50,7 @@ public class PropertyConverter {
         for(Property property : properties) {
             PropertyDisplay propertyDisplay = propertyToPropertyDisplay(property);
             propertyDisplays.add(propertyDisplay);
+            System.out.println("here");
         }
         return propertyDisplays;
     }

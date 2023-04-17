@@ -17,6 +17,7 @@ import java.util.Set;
 public class UserProfile {
     private String firstname;
     private String lastname;
+    private Integer age;
     private String phone;
     private String email;
     private List<Property> properties;

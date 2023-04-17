@@ -12,6 +12,7 @@ public class UserConverter {
         user.setPhone(userOTP.getPhone());
         user.setEmail(userOTP.getEmail());
         user.setPassword(userOTP.getPassword());
+        user.setAge(userOTP.getAge());
         return user;
     }
 
@@ -24,6 +25,7 @@ public class UserConverter {
         userProfile.setProperties(user.getProperties());
         userProfile.setFavoriteProperties(user.getFavoriteProperties());
         userProfile.setEmail(user.getEmail());
+        userProfile.setAge(user.getAge());
         return userProfile;
     }
 

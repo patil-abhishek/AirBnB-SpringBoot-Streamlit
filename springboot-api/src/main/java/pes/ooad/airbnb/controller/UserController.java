@@ -67,4 +67,5 @@ public class UserController {
         propertyService.updateProperty(parameters);
         return getProperties();
     }
+
 }

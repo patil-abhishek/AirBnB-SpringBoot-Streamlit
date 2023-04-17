@@ -1,6 +1,11 @@
 package pes.ooad.airbnb.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,10 +16,16 @@ import pes.ooad.airbnb.repository.PropertyRepository;
 import pes.ooad.airbnb.repository.UserRepository;
 import pes.ooad.airbnb.util.Helpers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     private PropertyRepository propertyRepository;
 
@@ -42,32 +53,46 @@ public class PropertyService {
         propertyRepository.save(propertyToUpdate);
     }
 
-    public ResponseEntity<String> searchProperties(SearchQuery searchQuery) throws JsonProcessingException {
+    public List<PropertyDisplay> searchProperties(String city, String address, Integer bedrooms, Integer price,
+                                                  Boolean swimmingPool, Boolean parking, Double averageRating )
+    {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Property> query = builder.createQuery(Property.class);
+        Root<Property> root = query.from(Property.class);
+        root.join("host", JoinType.LEFT);
 
-//        String q = "Select * from property where property.city = ?1";
-//        if (searchQuery.address != null) {
-//            q += " and property.address = "+ searchQuery.address;
-//        }
-//        if(searchQuery.bedrooms != null) {
-//            q += " and property.bedrooms = "+ searchQuery.bedrooms;
-//        }
-//        if(searchQuery.swimmingPool != null) {
-//            q += " and property.swimmingPool = "+ searchQuery.swimmingPool;
-//        }
-//        if(searchQuery.parking != null) {
-//            q += " and property.parking = "+ searchQuery.parking;
-//        }
-//        if(searchQuery.price != null) {
-//            q += " and property.price <= "+ searchQuery.price;
-//        }
-//        if(searchQuery.averageRating != null) {
-//            q += " and property.averageRating >= "+ searchQuery.averageRating;
-//        }
-//        @Query(q)
-        List<Property> properties = (List<Property>) propertyRepository.findPropertyByCity(searchQuery.city);
+        List<Predicate> predicates = new ArrayList<>();
+        if (city != null && city != "") {
+            predicates.add(builder.equal(root.get("city"), city));
+        }
+        if (address != null && address != "") {
+            predicates.add(builder.equal(root.get("address"), address));
+        }
+        if(bedrooms != null && bedrooms != 0) {
+            predicates.add(builder.equal(root.get("bedrooms"), bedrooms));
+        }
+        if(swimmingPool != null && swimmingPool) {
+            predicates.add(builder.equal(root.get("swimmingPool"), true));
+        }
+        if(parking != null && parking) {
+            predicates.add(builder.equal(root.get("parking"), true));
+        }
+        if(price != null && price != 0) {
+            predicates.add(builder.lessThanOrEqualTo(root.get("price"), price));
+        }
+        if(averageRating!=null)
+            predicates.add(builder.greaterThanOrEqualTo(root.get("averageRating"), averageRating));
 
-        List<PropertyDisplay> propertyDisplays = PropertyConverter.propertiesToPropertyDisplays(properties);
-        return ResponseEntity.ok().body(Helpers.convertToJson(propertyDisplays));
+        if (!predicates.isEmpty()) {
+            query.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+        }
 
+        List<Property> properties = entityManager.createQuery(query).getResultList();
+        List<PropertyDisplay> propertyDisplays = properties.stream()
+                .map(PropertyConverter::propertyToPropertyDisplay)
+                .toList();
+        System.out.println(propertyDisplays);
+        return propertyDisplays;
     }
+
 }

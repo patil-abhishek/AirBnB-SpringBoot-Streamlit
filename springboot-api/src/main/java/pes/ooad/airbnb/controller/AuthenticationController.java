@@ -31,8 +31,8 @@ public class AuthenticationController {
     private VerifyMail verifyMail;
 
     @GetMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginCredentials loginCredentials) throws JsonProcessingException{
-        if(userService.verifyLogin(loginCredentials)){
+    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) throws JsonProcessingException{
+        if(userService.verifyLogin(email, password)){
             UserProfile userProfile = UserConverter.userToUserProfile(userService.findById(CurrentUser.user_id));
             return ResponseEntity.ok().body(Helpers.convertToJson(userProfile));
         }
@@ -62,8 +62,8 @@ public class AuthenticationController {
         System.out.println(CurrentUser.otp);
         if(CurrentUser.otp.equals(userOTP.getInputOTP())){
             userService.addUserToDB(user);
-            UserProfile userProfile = UserConverter.userToUserProfile(userService.findById(CurrentUser.user_id));
-            return ResponseEntity.ok().body(Helpers.convertToJson(userProfile));
+//            UserProfile userProfile = UserConverter.userToUserProfile(userService.findById(CurrentUser.user_id));
+            return ResponseEntity.ok().body("{Registered!}");
         }
         else{
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("{Incorrect OTP}");
