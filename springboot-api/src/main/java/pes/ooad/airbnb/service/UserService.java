@@ -55,6 +55,7 @@ public class UserService {
         userToUpdate.setImage(user.getImage());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setPhone(user.getPhone());
+        userToUpdate.setAge(user.getAge());
         userRepository.save(userToUpdate);
     }
 

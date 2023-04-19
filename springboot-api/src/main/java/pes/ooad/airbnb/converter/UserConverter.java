@@ -22,10 +22,9 @@ public class UserConverter {
         userProfile.setLastname(user.getLastname());
         userProfile.setImage(user.getImage());
         userProfile.setEmail(user.getEmail());
-        userProfile.setProperties(user.getProperties());
-        userProfile.setFavoriteProperties(user.getFavoriteProperties());
-        userProfile.setEmail(user.getEmail());
+        userProfile.setPhone(user.getPhone());
         userProfile.setAge(user.getAge());
+        userProfile.setPassword(user.getPassword());
         return userProfile;
     }
 

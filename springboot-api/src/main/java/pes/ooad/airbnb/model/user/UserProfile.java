@@ -20,7 +20,6 @@ public class UserProfile {
     private Integer age;
     private String phone;
     private String email;
-    private List<Property> properties;
     private Image image;
-    private Set<Property> favoriteProperties;
+    private String password;
 }
