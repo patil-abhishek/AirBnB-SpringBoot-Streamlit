@@ -20,7 +20,6 @@ public class UserConverter {
         UserProfile userProfile = new UserProfile();
         userProfile.setFirstname(user.getFirstname());
         userProfile.setLastname(user.getLastname());
-        userProfile.setImage(user.getImage());
         userProfile.setEmail(user.getEmail());
         userProfile.setPhone(user.getPhone());
         userProfile.setAge(user.getAge());

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
-import pes.ooad.airbnb.model.image.Image;
 import pes.ooad.airbnb.model.property.Property;
+import pes.ooad.airbnb.model.review.Review;
 
 import java.util.List;
 import java.util.Set;
@@ -30,18 +30,20 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "host" ,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "host" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Property> properties;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Image image;
-
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_property_favorite",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "property_id")
     )
     private Set<Property> favoriteProperties;
+
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "review_id", nullable = false)
+//    private List<Review> reviews;
+
 }

@@ -15,6 +15,8 @@ public class PropertyAdd {
     // -- Location --
     private String city;
     private String address;
+    private Double Longitude;
+    private Double Latitude;
 
     // -- Facilities --
     private Integer bedrooms;

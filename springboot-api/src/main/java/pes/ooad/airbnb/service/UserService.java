@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pes.ooad.airbnb.converter.BookingConverter;
 import pes.ooad.airbnb.converter.PropertyConverter;
+import pes.ooad.airbnb.model.booking.Booking;
+import pes.ooad.airbnb.model.booking.BookingDisplay;
 import pes.ooad.airbnb.model.property.Property;
 import pes.ooad.airbnb.model.property.PropertyDisplay;
 import pes.ooad.airbnb.model.user.LoginCredentials;
@@ -52,7 +55,6 @@ public class UserService {
         User userToUpdate = userRepository.findById(CurrentUser.user_id).get();
         userToUpdate.setLastname(user.getLastname());
         userToUpdate.setFirstname(user.getFirstname());
-        userToUpdate.setImage(user.getImage());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setAge(user.getAge());

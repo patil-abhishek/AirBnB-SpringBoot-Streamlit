@@ -3,7 +3,7 @@ package pes.ooad.airbnb.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +54,7 @@ public class PropertyService {
     }
 
     public List<PropertyDisplay> searchProperties(String city, String address, Integer bedrooms, Integer price,
-                                                  Boolean swimmingPool, Boolean parking, Double averageRating )
-    {
+                                                  Boolean swimmingPool, Boolean parking, Double averageRating) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Property> query = builder.createQuery(Property.class);
         Root<Property> root = query.from(Property.class);
@@ -68,19 +67,19 @@ public class PropertyService {
         if (address != null && address != "") {
             predicates.add(builder.equal(root.get("address"), address));
         }
-        if(bedrooms != null && bedrooms != 0) {
+        if (bedrooms != null && bedrooms != 0) {
             predicates.add(builder.equal(root.get("bedrooms"), bedrooms));
         }
-        if(swimmingPool != null && swimmingPool) {
+        if (swimmingPool != null && swimmingPool) {
             predicates.add(builder.equal(root.get("swimmingPool"), true));
         }
-        if(parking != null && parking) {
+        if (parking != null && parking) {
             predicates.add(builder.equal(root.get("parking"), true));
         }
-        if(price != null && price != 0) {
+        if (price != null && price != 0) {
             predicates.add(builder.lessThanOrEqualTo(root.get("price"), price));
         }
-        if(averageRating!=null)
+        if (averageRating != null)
             predicates.add(builder.greaterThanOrEqualTo(root.get("averageRating"), averageRating));
 
         if (!predicates.isEmpty()) {
@@ -94,5 +93,4 @@ public class PropertyService {
         System.out.println(propertyDisplays);
         return propertyDisplays;
     }
-
 }
