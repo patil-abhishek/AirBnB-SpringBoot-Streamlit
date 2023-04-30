@@ -24,9 +24,10 @@ public class PropertyConverter {
         propertyDisplay.setHostName(property.getHost().getFirstname() + " " + property.getHost().getLastname());
         propertyDisplay.setHostPhone(property.getHost().getPhone());
         propertyDisplay.setHostEmail(property.getHost().getEmail());
-        propertyDisplay.setImages(property.getImages());
         propertyDisplay.setAverageRating(property.getAverageRating());
-        propertyDisplay.setNumOfReviews(property.getNumOfReviews());
+        propertyDisplay.setLongitude(property.getLongitude());
+        propertyDisplay.setLatitude(property.getLatitude());
+//        propertyDisplay.setReviewDisplay(ReviewConverter.reviewsToReviewDisplays(property.getReviews()));
         return propertyDisplay;
     }
 
@@ -40,6 +41,8 @@ public class PropertyConverter {
         property.setSwimmingPool(propertyAdd.getSwimmingPool());
         property.setArea(propertyAdd.getArea());
         property.setPrice(propertyAdd.getPrice());
+        property.setLongitude(propertyAdd.getLongitude());
+        property.setLatitude(propertyAdd.getLatitude());
         property.setAverageRating(0.0);
         property.setNumOfReviews(0);
         return property;
@@ -50,7 +53,6 @@ public class PropertyConverter {
         for(Property property : properties) {
             PropertyDisplay propertyDisplay = propertyToPropertyDisplay(property);
             propertyDisplays.add(propertyDisplay);
-            System.out.println("here");
         }
         return propertyDisplays;
     }

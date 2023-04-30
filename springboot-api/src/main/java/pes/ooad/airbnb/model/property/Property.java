@@ -8,8 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pes.ooad.airbnb.model.image.Image;
+import pes.ooad.airbnb.model.review.Review;
 import pes.ooad.airbnb.model.user.User;
+
+import java.util.Hashtable;
 import java.util.List;
 
 @Entity
@@ -35,16 +37,18 @@ public class Property {
     private Integer area;
     private Integer price;
     private Boolean parking;
+    private Double Longitude;
+    private Double Latitude;
 
     // -- Reviews --
     private Integer numOfReviews;
     private Double averageRating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name ="user_id", nullable = false)
     private User host;
 
-    @OneToMany(mappedBy = "image_id" ,fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Image> images;
-
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "review_id", nullable = false)
+//    private List<Review> reviews;
 }
